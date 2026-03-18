@@ -1,0 +1,50 @@
+---
+title: "Favorites"
+description: "How to bookmark indicators and manage your personal favorites list in Roots."
+---
+
+Favorites let you bookmark indicators you return to often. Your favorites are saved in your browser so the list persists between sessions without requiring a server account.
+
+## Adding a favorite
+
+You can bookmark any indicator directly from the catalog grid:
+
+1. Locate the indicator card in the [catalog](/guide/browsing-indicators), [search results](/guide/search), or on the [indicator detail](/guide/indicator-detail) page.
+2. Click the **star icon** on the card.
+3. The icon fills to confirm the indicator has been bookmarked.
+
+To remove a favorite, click the star icon again. The icon returns to its outline state and the indicator is removed from your favorites list.
+
+## Viewing your favorites
+
+Navigate to `/favorites` to see all bookmarked indicators in one place. The page uses the same 3-column indicator card grid as the main catalog, so you can:
+
+- Click any card to open the [indicator detail page](/guide/indicator-detail).
+- Sort and filter the list using the same controls available in the catalog.
+
+## How favorites are stored
+
+Favorites are stored in your browser's **localStorage** under the `resources` key. This means:
+
+- Your favorites are **device-specific** — they are not synced across browsers or devices.
+- Clearing your browser data or localStorage will erase your favorites list.
+- No login is required to use favorites.
+
+<Warning>
+Because favorites are stored in localStorage, they are not backed up to the server. If you clear your browser's site data, your favorites list will be lost.
+</Warning>
+
+## localStorage keys
+
+The platform uses the following localStorage keys:
+
+| Key | Contents |
+|---|---|
+| `token` | Authentication token (if logged in) |
+| `user` | Logged-in user profile |
+| `resources` | Bookmarked indicator IDs (favorites) |
+| `theme` | User interface color theme preference |
+
+<Note>
+Favorites functionality does not require you to be logged in. The star icon is available to all visitors.
+</Note>

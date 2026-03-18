@@ -1,0 +1,77 @@
+---
+title: "Managing domains"
+description: "How to create, edit, and delete domains in the Roots admin panel."
+---
+
+Domains are the top-level thematic areas that organize all indicators on the platform. Each domain groups a set of dimensions (sub-categories), and each dimension groups a set of indicators. Examples of domains include areas like environment, economy, or society.
+
+Navigate to **Domains management** at `/domains-management` from the AdminNavbar.
+
+## The domains table
+
+The table lists every domain with the following columns:
+
+| Column | Description |
+|---|---|
+| **Name** | The domain's display name, shown alongside its color badge and icon. |
+| **Dimensions** | The number of dimensions (sub-categories) belonging to this domain. |
+| **Indicators** | The total number of indicators assigned to this domain. |
+| **Options** | Edit and delete action buttons. |
+
+Click the **Name** or **Dimensions** or **Indicators** column headers to sort the table in ascending or descending order. The table is paginated with 10 rows per page.
+
+## Creating a domain
+
+Click the **Adicionar Domínio** action card on the right side of the page. This opens the **DomainWizard** — a multi-step form for creating a domain.
+
+<Steps>
+  <Step title="Name">
+    Enter a display name for the domain. This name appears throughout the platform wherever the domain is referenced.
+  </Step>
+  <Step title="Color">
+    Choose a color for the domain. This color is used to visually distinguish the domain in tables, badges, and charts across the platform.
+  </Step>
+  <Step title="Icon">
+    Upload an icon image for the domain. The file is sent to `POST /uploads/domain-icons/upload` and the resulting URL is stored on the domain object. The icon appears in the domain's color badge in the table and on public-facing pages.
+  </Step>
+  <Step title="Carousel images">
+    Upload one or more images for the domain's carousel (used on the public domain detail page). Images are uploaded to `POST /uploads/domain-images/upload`.
+  </Step>
+  <Step title="Dimensions">
+    Add one or more dimension names to the domain. Dimensions can also be managed independently from the [Dimensions management](/admin/managing-dimensions) page after the domain is created.
+  </Step>
+  <Step title="Save">
+    Submit the form. The wizard sends a `POST /api/domains/` request with the complete domain payload. On success, the new domain appears in the table.
+  </Step>
+</Steps>
+
+<Info>
+  You can add or remove dimensions from a domain at any time using the [Dimensions management](/admin/managing-dimensions) page. You do not have to define all dimensions during domain creation.
+</Info>
+
+## Editing a domain
+
+Click the edit (pencil) icon in the **Options** column for any domain row. This opens the same **DomainWizard** pre-populated with the domain's existing data. Changes are submitted as a `PATCH /api/domains/:id` request, so only the fields you modify are sent.
+
+You can also navigate directly to `/edit_domain/:id` to open the wizard for a specific domain ID.
+
+## Deleting a domain
+
+Click the delete (trash) icon in the **Options** column. A confirmation dialog will appear before any data is removed.
+
+<Warning>
+  Deleting a domain sends `DELETE /api/domains/:id` and permanently removes the domain and all of its associated data. All indicators that belong to this domain's dimensions will also be removed. This action cannot be undone.
+</Warning>
+
+## API reference
+
+```http
+GET    /api/domains          — list all domains
+POST   /api/domains/         — create a new domain
+PATCH  /api/domains/:id      — partial update (used by wizard on edit)
+PUT    /api/domains/:id      — full update
+DELETE /api/domains/:id      — delete domain
+
+POST   /uploads/domain-icons/upload   — upload domain icon
+POST   /uploads/domain-images/upload  — upload carousel images
+```

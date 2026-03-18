@@ -1,0 +1,92 @@
+---
+title: "Managing resources"
+description: "How to create, link, and unlink data sources (resources) for indicators in the Roots admin panel."
+---
+
+Resources are the data sources that supply time-series values for indicators. Each resource has a name and a defined coverage period (`startPeriod` and `endPeriod`). A single resource can be shared across multiple indicators, and one indicator can have multiple resources.
+
+Resources are managed per indicator. Navigate to the resource management page for a specific indicator by clicking its name in the [Indicators management](/admin/managing-indicators) table, or go directly to `/resources-management/:indicatorId`.
+
+## The resources table
+
+The table shows all resources currently linked to the indicator, with the following columns:
+
+| Column | Description |
+|---|---|
+| **Name** | The resource's display name. |
+| **Start period** | The start of the data coverage period. |
+| **End period** | The end of the data coverage period. |
+| **Type** | The resource type (e.g., API, file). |
+| **Status** | The wrapper execution status (e.g., `completed`, `error`, `no wrapper`). |
+| **Options** | Details and delete action buttons. |
+
+## Adding a resource to an indicator
+
+<Steps>
+  <Step title="Open the resource wizard">
+    Click **Add Data** (the **AddDataDropdown** action) on the resources page. This opens the **ResourceWizard** modal.
+  </Step>
+  <Step title="Create a new resource or select an existing one">
+    To create a new resource, fill in the required fields:
+
+    | Field | Description |
+    |---|---|
+    | **Name** | A descriptive name for the data source. |
+    | **Start period** | The earliest date for which this resource provides data. |
+    | **End period** | The latest date for which this resource provides data. |
+
+    A new resource is created with `POST /api/resources`.
+  </Step>
+  <Step title="Link the resource to the indicator">
+    After the resource is created (or if you are linking an existing resource), the wizard sends:
+
+    ```http
+    POST /api/indicators/:indicatorId/resources
+    Content-Type: application/json
+
+    { "resource_id": "<resourceId>" }
+    ```
+
+    This links the resource to the indicator. The resource will now appear in the indicator's resources table.
+  </Step>
+</Steps>
+
+## Viewing resource details
+
+Click **Details** in the **Options** column to open a detail modal for the resource. The modal shows:
+
+- Resource information: name, type, start and end period, resource ID, wrapper ID.
+- Wrapper status: current status, creation time, completion time, and any error messages.
+- Source configuration: source type, API URL, date field, value field, and auth type (if configured).
+- Metadata: domain and dimension context.
+- Advanced logs: expand the **Advanced: View Wrapper Logs** section to see the last 200 lines of wrapper execution output. Click **Refresh Logs** to reload.
+
+## Unlinking a resource
+
+Click the delete (trash) icon in the **Options** column. The system:
+
+1. Deletes the resource with `DELETE /api/resources/:resourceId`.
+2. Removes the link from the indicator with `DELETE /api/indicators/:indicatorId/resources/:resourceId`.
+
+<Warning>
+  The current implementation deletes the resource itself in addition to unlinking it. If you want to remove a resource from only one indicator while keeping it linked to others, use the API directly:
+
+  ```http
+  DELETE /api/indicators/:indicatorId/resources/:resourceId
+  ```
+
+  This unlinks the resource without deleting it.
+</Warning>
+
+## API reference
+
+```http
+GET    /api/resources                                — list all resources
+POST   /api/resources                                — create a resource
+PUT    /api/resources/:id                            — update a resource
+DELETE /api/resources/:id                            — delete a resource
+
+GET    /api/indicators/:id/resources                 — list resources linked to an indicator
+POST   /api/indicators/:id/resources                 — link a resource to an indicator
+DELETE /api/indicators/:id/resources/:resourceId     — unlink a resource from an indicator
+```

@@ -1,0 +1,81 @@
+---
+title: "Browsing indicators"
+description: "How to navigate, filter, sort, and paginate the Roots indicator catalog."
+---
+
+The indicator catalog is the core of the Roots platform. You can browse all indicators at once, narrow the view to a specific domain, or arrive from a domain card on the home page.
+
+## Routes
+
+| URL | What you see |
+|---|---|
+| `/indicators` | All indicators across every domain |
+| `/indicators/:domainPath` | Indicators belonging to a specific domain |
+| `/search?q=` | Search results (see [Searching for indicators](/guide/search)) |
+
+## Browsing workflow
+
+<Steps>
+  <Step title="Open the indicator catalog">
+    Navigate to `/indicators` or click a domain card on the [home page](/guide/home). The catalog loads in a three-column grid of indicator cards.
+  </Step>
+  <Step title="Select a domain">
+    Use the **Domain** dropdown to filter the catalog to a single domain. In domain-specific mode (when you arrived via a domain card or `/indicators/:domainPath`), a **DomainDropdown** appears at the top of the page so you can switch between domains without going back to the home page.
+  </Step>
+  <Step title="Narrow by dimension">
+    Once a domain is selected, the **Dimension** (subdomain) dropdown becomes active. Choose a dimension to see only the indicators that belong to it. This dropdown is disabled until you have selected a domain.
+  </Step>
+  <Step title="Filter for governance indicators">
+    Check the **Governance** checkbox to show only indicators that are classified as governance indicators. Uncheck it to return to the full list.
+  </Step>
+  <Step title="Sort the results">
+    Use the **Sort** dropdown to order results by:
+    - **Nome** — alphabetical by indicator name
+    - **Periodicidade** — by data periodicity
+    - **Favoritos** — by how many users have bookmarked the indicator
+
+    Click the sort direction toggle (ascending/descending arrow) next to the dropdown to reverse the order.
+  </Step>
+  <Step title="Paginate through results">
+    The catalog shows **9 indicators per page**. Use the **Previous** and **Next** controls at the bottom of the grid to move between pages.
+  </Step>
+  <Step title="Open an indicator">
+    Click any indicator card to open the [indicator detail](/guide/indicator-detail) page for that indicator.
+  </Step>
+</Steps>
+
+## Indicator cards
+
+Each card in the grid displays the following information at a glance:
+
+| Field | Description |
+|---|---|
+| **Name** | The full indicator name |
+| **Domain** | The top-level thematic area |
+| **Subdomain** | The dimension within the domain |
+| **Description** | A short excerpt of the indicator description |
+| **Unit** | The unit of measurement (e.g., %, tonnes, nights) |
+| **Star icon** | Click to add or remove the indicator from your [Favorites](/guide/favorites) |
+
+## Filter controls reference
+
+| Control | Available in | Description |
+|---|---|---|
+| Domain dropdown | All indicators, Search | Filter by top-level domain |
+| Dimension dropdown | All indicators (domain selected), Search (domain selected) | Filter by subdomain |
+| Governance checkbox | All modes | Show only governance-classified indicators |
+| Sort dropdown | All modes | Sort by name, periodicity, or favorites |
+| Sort direction toggle | All modes | Switch between ascending and descending order |
+| DomainDropdown (top) | Domain-specific mode | Switch domain or subdomain from the header |
+
+<Info>
+The dimension dropdown is disabled if no domain is selected. Select a domain first to activate dimension filtering.
+</Info>
+
+## Pagination
+
+The catalog paginates at 9 indicators per page. The current page and total indicator count are shown above the grid (e.g., **42 Indicadores Disponíveis**). Page controls appear at the bottom of the grid.
+
+<Note>
+Changing any filter (domain, dimension, governance, or sort) resets the page back to page 1.
+</Note>

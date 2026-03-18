@@ -1,0 +1,61 @@
+---
+title: "Exporting data as CSV"
+description: "How to download indicator time-series data as a CSV file from the indicator detail page."
+---
+
+You can export the underlying data for any indicator as a CSV file. The export respects your current date range filter so you always get exactly the data that is visible in the chart.
+
+## Exporting from the Opções panel
+
+<Steps>
+  <Step title="Open an indicator">
+    Navigate to any indicator detail page by clicking a card in the [catalog](/guide/browsing-indicators) or [search results](/guide/search).
+  </Step>
+  <Step title="Apply filters (optional)">
+    Use the **Ferramentas** sidebar panel to set a start date, end date, or granularity before exporting. The CSV output reflects the current filtered view.
+  </Step>
+  <Step title="Click Exportar CSV">
+    Open the **Opções** sidebar panel and click **Exportar CSV**. The browser downloads the file immediately.
+  </Step>
+</Steps>
+
+## CSV file format
+
+The exported file contains two columns:
+
+```csv
+Date,Value
+2023-01-01,124.5
+2023-02-01,130.2
+2023-03-01,118.9
+```
+
+| Column | Description |
+|---|---|
+| `Date` | The date of the data point in ISO 8601 format (`YYYY-MM-DD`) |
+| `Value` | The numeric value for that date |
+
+The file is named **`{indicatorName}_data.csv`** where `{indicatorName}` is the name of the indicator.
+
+<Note>
+The CSV export uses the same date range and granularity that are currently active in the Ferramentas panel. If you want to export the full unfiltered dataset, click **Reset** in the Ferramentas panel before exporting.
+</Note>
+
+## Exporting per source
+
+If an indicator has multiple data sources, you can export data from each source independently using the **Sources table** below the chart.
+
+<Steps>
+  <Step title="Scroll to the Sources table">
+    Scroll below the chart and metadata panel to find the **Sources** table.
+  </Step>
+  <Step title="Click the CSV icon for a source">
+    Each row in the table has a CSV export icon on the right. Click the icon to download data from that specific source.
+  </Step>
+</Steps>
+
+Per-source files are named **`{sourceName}_data.csv`** where `{sourceName}` is the name of the linked resource.
+
+<Info>
+Per-source exports are useful when you need to audit the raw data from a single provider without mixing data from other sources that may cover overlapping or different time periods.
+</Info>

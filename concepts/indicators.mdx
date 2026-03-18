@@ -1,0 +1,157 @@
+---
+title: "Indicators"
+description: "Indicators are the measurable sustainability metrics at the heart of the ATT Platform — each one tracks a specific aspect of tourism's impact over time."
+---
+
+## What is an indicator?
+
+An indicator is a quantitative or qualitative measure of a specific aspect of tourism sustainability. Every indicator has a data series — one or more time-stamped values — that can be charted, filtered, and exported.
+
+Indicators are organised into [domains](/concepts/domains) (top-level themes) and [dimensions](/concepts/dimensions) (sub-categories within a domain), making it straightforward to compare related metrics and understand the full picture within a thematic area.
+
+## Indicator fields
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | string | Unique identifier |
+| `name` | string | Display name of the indicator |
+| `description` | string | Full text description of what the indicator measures |
+| `unit` | string | Unit of measurement (e.g. tonnes, %, persons, EUR) |
+| `periodicity` | string | How frequently data is collected (e.g. annual, monthly) |
+| `governance` | boolean | Whether the indicator has governance/policy relevance |
+| `domain` | object | The domain this indicator belongs to |
+| `subdomain` | string | The dimension (subdomain) within the domain |
+| `characteristics.source` | string | Organisation or dataset that provides the data |
+| `characteristics.unit_of_measure` | string | Detailed unit description |
+| `characteristics.periodicity` | string | Periodicity from characteristics metadata |
+
+## Field reference
+
+<ParamField path="body.name" type="string" required>
+  The human-readable name of the indicator as displayed in cards, list views, and chart titles.
+</ParamField>
+
+<ParamField path="body.description" type="string">
+  A plain-text description explaining what the indicator measures, how it is calculated, and why it matters for tourism sustainability.
+</ParamField>
+
+<ParamField path="body.unit" type="string">
+  The unit of measurement for the indicator's values. Examples: `%`, `tonnes CO₂`, `number of visitors`, `EUR`.
+</ParamField>
+
+<ParamField path="body.periodicity" type="string">
+  How often data points are recorded. Common values: `annual`, `monthly`, `quarterly`. Used for sorting and display.
+</ParamField>
+
+<ParamField path="body.governance" type="boolean" default="false">
+  When `true`, the indicator is flagged as having direct relevance to governance or policy decisions. The governance filter on the indicator list uses this field.
+</ParamField>
+
+<ParamField path="body.domain" type="object" required>
+  The domain object this indicator belongs to, including `id`, `name`, and visual properties.
+</ParamField>
+
+<ParamField path="body.subdomain" type="string" required>
+  The name of the dimension (subdomain) within the parent domain. Used for the dimension filter on the indicator list.
+</ParamField>
+
+<ParamField path="body.characteristics" type="object">
+  Additional metadata about the indicator's data.
+
+  <Expandable title="characteristics properties">
+    <ResponseField name="source" type="string">
+      The organisation, database, or publication that provides the raw data for this indicator.
+    </ResponseField>
+    <ResponseField name="unit_of_measure" type="string">
+      A more detailed description of the unit, complementing the top-level `unit` field.
+    </ResponseField>
+    <ResponseField name="periodicity" type="string">
+      Periodicity as recorded in the characteristics metadata, which may differ from the top-level `periodicity` field.
+    </ResponseField>
+  </Expandable>
+</ParamField>
+
+## Indicator API endpoints
+
+```http
+GET /api/indicators                                              # All indicators
+GET /api/indicators/:id                                         # Single indicator
+GET /api/indicators/domain/:domainId                            # Indicators in a domain
+GET /api/indicators/domain/:domainId/subdomain/:subdomain       # Indicators in a dimension
+GET /api/indicators/count                                       # Total indicator count
+GET /api/indicators/domain/:domainId/count                      # Count for a domain
+GET /api/indicators/search                                      # Full-text search (use ?q=)
+```
+
+### Time-series data endpoint
+
+```http
+GET /api/indicators/:indicatorId/data
+```
+
+Query parameters for the data endpoint:
+
+<ParamField path="query.startDate" type="string">
+  ISO 8601 date string for the start of the requested date range. Example: `2020-01-01`.
+</ParamField>
+
+<ParamField path="query.endDate" type="string">
+  ISO 8601 date string for the end of the requested date range. Example: `2024-12-31`.
+</ParamField>
+
+<ParamField path="query.granularity" type="string" default="raw">
+  Aggregation level for the returned data points. Accepted values:
+
+  | Value | Description |
+  |---|---|
+  | `raw` | Every recorded data point with no aggregation |
+  | `1d` | Daily aggregation |
+  | `1w` | Weekly aggregation |
+  | `1M` | Monthly aggregation |
+  | `1y` | Yearly aggregation |
+</ParamField>
+
+### Export endpoints
+
+```http
+GET /api/indicators/:indicatorId/data       # Download as CSV (add Accept: text/csv header)
+GET /api/indicators/:indicatorId/export/image  # Export chart as PNG
+```
+
+## Browsing indicators in the UI
+
+### Indicator list
+
+The indicator list at `/indicators` (or `/indicators/:domainPath`) supports:
+
+- **Pagination** — 10 indicators per page by default (`DEFAULT_ITEMS_PER_PAGE`)
+- **Sorting** — by `name` (default, ascending), `periodicity`, or number of favourites
+- **Dimension filter** — filter to a specific subdomain (only active when a domain is selected)
+- **Governance filter** — show only governance-flagged indicators
+- **Search** — full-text search with a minimum query length of 2 characters
+
+### Indicator detail page
+
+The detail page at `/indicator/:indicatorId` shows all metadata fields and an interactive time-series chart. The chart supports:
+
+- Click-and-drag zoom to a specific time range
+- Granularity controls (raw, 1d, 1w, 1M, 1y)
+- Viewport-aware lazy loading — data fetches only when the chart enters the viewport
+- CSV data export
+- PNG chart export
+
+## The governance flag
+
+The `governance` boolean field marks indicators that have direct relevance to policy or regulatory decisions. These are indicators that decision-makers, auditors, or government bodies are likely to need when reporting on destination sustainability commitments.
+
+The governance filter toggle on the indicator list surfaces these indicators without removing non-governance indicators from the dataset.
+
+## Managing indicators (admin)
+
+<Warning>
+  Indicator management requires an administrator account. Indicators are created within a domain and dimension — you must have at least one domain and one dimension configured before creating an indicator.
+</Warning>
+
+Administrators manage indicators from `/admin` (or `/indicators-management`). From this page you can create, edit, and delete indicators. When creating an indicator, you select its domain, then its subdomain, and fill in the metadata fields.
+
+Data points for an indicator are managed separately through [resources](/concepts/resources), which define the temporal coverage and source of each dataset attached to the indicator.

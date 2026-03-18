@@ -1,80 +1,115 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Get up and running with the Roots — ATT Tourism Platform in a few minutes."
 ---
 
-## Get started in three steps
+This guide walks you through the platform from first visit to exploring indicators and using key features. No account is required to browse public data.
 
-Get your documentation site running locally and make your first customization.
+<Steps>
+  <Step title="Open the platform">
+    Navigate to the platform URL in your browser. You will land on the home page (`/`), which contains several sections:
 
-### Step 1: Set up your local environment
+    - **Hero** — an introduction to the platform and the destination
+    - **About** — background on the Roots project and its goals
+    - **Features** — highlights of the platform's capabilities
+    - **Dimensions** — a preview of the thematic areas covered
+    - **Blog** — the latest editorial content from platform administrators
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    Scroll through the home page to get an overview of what the platform covers before diving into the data.
+  </Step>
 
-### Step 2: Deploy your changes
+  <Step title="Explore domains">
+    Go to `/domains`. This page shows all available **domain cards** — the top-level thematic areas that organise the platform's indicators.
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    Each card displays the domain's name, icon, and colour. Domains represent broad sustainability themes such as environmental quality, economic performance, social conditions, or cultural heritage.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    <Tip>
+      Domains are configured by administrators and may vary depending on the destination's reporting framework. The number of domains and their names reflect the specific indicators tracked for Barra and Costa Nova.
+    </Tip>
+  </Step>
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+  <Step title="Browse indicators by domain">
+    Click any domain card. You will be taken to `/indicators/:domainPath`, where `:domainPath` is the domain name in lowercase.
 
-### Step 3: Go live
+    This view lists all indicators belonging to the selected domain. You can:
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    - **Filter by dimension** — use the dimension dropdown to narrow results to a specific subdomain within the domain
+    - **Toggle governance filter** — show only indicators flagged as governance-relevant
+    - **Sort results** — sort by name, periodicity, or number of favourites
+    - **Paginate** — results are shown 10 per page by default
 
-## Next steps
+    You can also browse all indicators across every domain at `/indicators`.
+  </Step>
 
-Now that you have your docs running, explore these key features:
+  <Step title="View an indicator detail">
+    Click any indicator card to open its detail page at `/indicator/:id`.
 
-<CardGroup cols={2}>
+    The detail page shows:
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+    - **Name, description, and unit** of the indicator
+    - **Domain and dimension** it belongs to
+    - **Source and periodicity** from the indicator's characteristics
+    - **Governance flag** if the indicator has policy relevance
+    - **Interactive time-series chart** with the full data history
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+    Use the chart controls to:
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+    - **Zoom** — click and drag on the chart to zoom into a time range
+    - **Change granularity** — switch between raw values, daily, weekly, monthly, or yearly aggregation
+    - **Export data** — download the underlying data as a CSV file
+    - **Export chart** — save the chart as a PNG image
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
+    <Info>
+      Charts use viewport-aware lazy loading — data is fetched only when the chart is visible on screen, keeping the page fast even with large datasets.
+    </Info>
+  </Step>
 
-</CardGroup>
+  <Step title="Bookmark indicators with favourites">
+    On any indicator card or detail page, click the **star icon** to add the indicator to your favourites.
+
+    Favourited indicators are accessible at `/favorites`. Your favourites persist in the browser and give you a personalised shortlist of the indicators most relevant to your work.
+
+    To remove an indicator from your favourites, click the star icon again.
+  </Step>
+
+  <Step title="Search for indicators">
+    Use the search bar to find indicators by keyword. The search is available from the navigation and runs against all indicator names and descriptions.
+
+    Search results appear at `/search?q=your+query`. The minimum query length is 2 characters.
+
+    ```
+    /search?q=tourism
+    /search?q=water quality
+    /search?q=employment
+    ```
+
+    <Tip>
+      Combine search with domain filtering for the most precise results. Navigate to a domain first, then use the search bar to filter within that domain.
+    </Tip>
+  </Step>
+
+  <Step title="Read the blog">
+    Go to `/blog` to browse editorial content published by platform administrators. Posts cover analyses, methodology notes, and updates related to tourism sustainability in Barra and Costa Nova.
+
+    Click any post to read it in full at `/blog/:postId`.
+  </Step>
+</Steps>
+
+## Admin features
 
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+  The following routes require an administrator account. Log in at `/api/auth/login` to access admin functionality.
 </Note>
+
+If you have administrator access, you can manage all platform content from the admin panel:
+
+| Route | Purpose |
+|---|---|
+| `/admin` | Main admin area (indicators management) |
+| `/domains-management` | Create, edit, and delete domains |
+| `/dimensions` | Manage dimensions (subdomains) |
+| `/resources-management/:indicator` | Manage data sources for a specific indicator |
+| `/admin/blog` | Manage blog posts |
+| `/admin/users` | Manage user accounts |
+
+For a full reference on admin workflows, see the [domains](/concepts/domains), [indicators](/concepts/indicators), [dimensions](/concepts/dimensions), and [resources](/concepts/resources) concept pages.

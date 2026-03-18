@@ -1,0 +1,113 @@
+---
+title: "Managing blog posts"
+description: "How to create, edit, publish, and delete blog posts in the Roots admin panel."
+---
+
+The blog management page lets you author and publish articles visible to all platform users. Admins can see all posts including unpublished drafts. The post editor uses Tiptap with Markdown support for rich formatting.
+
+Navigate to **Blog management** at `/admin/blog` from the AdminNavbar.
+
+## The posts table
+
+The table lists every blog post (including drafts) with the following columns:
+
+| Column | Description |
+|---|---|
+| **Title** | The post title and any associated tags (first two shown). A thumbnail preview is shown if one has been uploaded. |
+| **Author** | The author name entered when the post was created. |
+| **Status** | `Publicado` (published) or `Rascunho` (draft). |
+| **Views** | The total view count for published posts. |
+| **Date** | The creation date of the post. |
+| **Actions** | View (published only), Edit, and Delete buttons. |
+
+## Creating a post
+
+Click **Novo Post** in the top-right corner. This navigates to `/admin/blog/create`.
+
+<Steps>
+  <Step title="Fill in post metadata">
+    Complete the required fields:
+
+    | Field | Required | Description |
+    |---|---|---|
+    | **Title** | Yes | The post's headline, shown in the table and on the public blog page. |
+    | **Author** | Yes | The name to display as the post's author. |
+    | **Status** | No | `Rascunho` (draft, default) or `Publicado` (published). Setting to published requires confirmation. |
+    | **Excerpt** | No | A short summary displayed in blog listings. |
+    | **Tags** | No | Type a tag and press **Enter** to add it. Tags can be removed by clicking `×` next to each one. |
+  </Step>
+  <Step title="Write the content">
+    Use the **RichTextEditor** to write the post body. The editor is powered by Tiptap and supports:
+
+    - **Headings**: `# H1`, `## H2`, `### H3`
+    - **Inline formatting**: `**bold**`, `*italic*`, `~~strikethrough~~`
+    - **Links**: select text and add a URL using the link toolbar button
+    - **Code blocks**: fenced code blocks with syntax highlighting powered by lowlight
+    - **Lists**: unordered (`- item`) and ordered (`1. item`)
+    - **Blockquotes**: `> quoted text`
+    - **Typography**: smart quotes, dashes, and other typographic improvements via the typography extension
+    - **Text colors**: apply custom colors to selected text
+
+    You can also type directly in Markdown — the editor interprets Markdown syntax in real time.
+  </Step>
+  <Step title="Upload a thumbnail">
+    Under **Imagem de Capa**, select an image file. A preview is shown before upload. The image is uploaded to the post after the post record is created:
+
+    ```http
+    POST /api/blog/admin/posts/:postId/thumbnail
+    ```
+  </Step>
+  <Step title="Upload attachments (optional)">
+    Under **Anexos**, select one or more files to attach to the post. Accepted formats: PDF, Word (`.doc`, `.docx`), Excel (`.xls`, `.xlsx`), TXT, CSV.
+
+    Each file is uploaded individually:
+
+    ```http
+    POST /api/blog/admin/posts/:postId/attachments
+    ```
+  </Step>
+  <Step title="Save the post">
+    Click **Criar Post**. If the status is set to `published`, a confirmation dialog will ask you to confirm before the post goes live.
+
+    The form sends `POST /api/blog/admin/posts` with the post data, then uploads the thumbnail and attachments in separate requests. On success, you are redirected to the blog management table.
+  </Step>
+</Steps>
+
+<Info>
+  The form tracks unsaved changes. If you try to leave the page with unsaved work, a confirmation dialog will prompt you before navigating away.
+</Info>
+
+## Editing a post
+
+Click **Editar** in the **Actions** column. This navigates to `/admin/blog/edit/:postId` and opens the same form pre-populated with the post's existing content.
+
+Existing attachments are listed and can be removed individually. New attachments can be added alongside existing ones.
+
+Changes are submitted with `PUT /api/blog/admin/posts/:postId`.
+
+## Deleting a post
+
+Click **Excluir** in the **Actions** column. A confirmation dialog will appear before the post is removed.
+
+Deletion sends `DELETE /api/blog/admin/posts/:postId`. The post, its thumbnail, and its attachments are permanently removed.
+
+## Publishing and unpublishing
+
+Post status is controlled through the **Status** field in the post form:
+
+- Set status to `Publicado` and save to make a post publicly visible.
+- Set status to `Rascunho` and save to hide a post from the public blog page.
+
+Published posts are accessible at `/blog/:postId` on the public platform.
+
+## API reference
+
+```http
+GET    /api/blog/admin/posts                         — list all posts (including drafts)
+POST   /api/blog/admin/posts                         — create a post
+PUT    /api/blog/admin/posts/:postId                 — update a post
+DELETE /api/blog/admin/posts/:postId                 — delete a post
+
+POST   /api/blog/admin/posts/:postId/thumbnail       — upload post thumbnail
+POST   /api/blog/admin/posts/:postId/attachments     — upload post attachments
+```

@@ -1,0 +1,77 @@
+---
+title: "User management"
+description: "How to view, manage roles, and delete user accounts in the Roots admin panel."
+---
+
+The user management page gives admins visibility over all registered accounts on the platform. From here you can toggle admin rights and remove accounts.
+
+Navigate to **User management** at `/admin/users` from the AdminNavbar.
+
+## The users table
+
+The table lists every registered user with the following columns:
+
+| Column | Description |
+|---|---|
+| **Name** | The user's full name (`full_name` or `name`). |
+| **Email** | The user's email address. |
+| **Role** | `Administrador` (admin) or `Utilizador` (user). |
+| **Registration date** | When the account was created (`created_at`). |
+| **Last login** | The last time the user logged in (`last_login_at`), or "Never" if they have not logged in yet. |
+| **Actions** | Role toggle and delete buttons. |
+
+## User roles
+
+The platform has two roles:
+
+| Role | Access |
+|---|---|
+| `admin` | Full access to all admin pages and management functions. |
+| `user` | Read-only access to the public platform — browse indicators, view charts, use favorites, read the blog. |
+
+## Changing a user's role
+
+In the **Actions** column:
+
+- If the user has the `user` role, click **Tornar Admin** to promote them to `admin`.
+- If the user has the `admin` role, click **Remover Admin** to demote them to `user`.
+
+The change is applied immediately with `PUT /api/users/:id` (via the `userService.updateRole` method).
+
+<Warning>
+  Do not demote your own account to `user`. If you remove admin rights from your own account, you will lose access to all admin pages and will not be able to restore your own role. Ask another administrator to restore your access.
+</Warning>
+
+## Deleting a user
+
+Click **Excluir** in the **Actions** column. A confirmation dialog will appear before the deletion is sent.
+
+Deletion sends `DELETE /api/users/:id`. The account is permanently removed from the platform.
+
+<Warning>
+  Deleting a user is permanent. All of their session data and preferences will be lost. There is no way to recover a deleted account from within the admin panel.
+</Warning>
+
+## Creating users
+
+User accounts are created through the standard registration flow on the public platform. The admin panel does not provide a user creation form — but you can create users via the API directly if needed:
+
+```http
+POST /api/users
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "name": "Full Name",
+  "role": "user"
+}
+```
+
+## API reference
+
+```http
+GET    /api/users          — list all users
+POST   /api/users          — create a user
+PUT    /api/users/:id      — update a user (including role)
+DELETE /api/users/:id      — delete a user
+```

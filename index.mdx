@@ -1,97 +1,92 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Roots — ATT Tourism Platform"
+description: "A data-driven tourism intelligence platform for visualizing, comparing, and acting on sustainability indicators for the Barra and Costa Nova territory."
 ---
 
-## Setting up
+<img
+  src="https://media.brand.dev/60a90780-779d-4b80-a52e-b7b5166da58e.png"
+  alt="Roots — ATT Tourism Platform"
+  style={{ height: '60px', marginBottom: '2rem' }}
+/>
 
-Get your documentation site up and running in minutes.
+## The root of better tourism decisions
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+Roots is a web platform built for tourism stakeholders, researchers, and local administrators who need reliable, up-to-date data to understand how the Barra and Costa Nova territory is evolving. The platform aggregates tourism sustainability indicators across multiple domains — from environmental impact to social and economic metrics — and presents them as interactive charts and structured data.
 
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Get started" icon="rocket" href="/quickstart">
+    Set up your account and explore your first indicators in minutes.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Browse indicators" icon="chart-line" href="/guide/browsing-indicators">
+    Navigate the full catalog of sustainability indicators by domain and dimension.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Admin guide" icon="shield-halved" href="/admin/overview">
+    Manage domains, indicators, resources, and users from the admin panel.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Self-hosting" icon="server" href="/deployment/docker">
+    Deploy the platform with Docker and Nginx on your own infrastructure.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## What you can do with Roots
 
-Everything you need to create world-class documentation.
+<CardGroup cols={3}>
+  <Card title="Visualize" icon="eye">
+    Browse tourism sustainability indicators organized by domain and dimension, with data updated directly from trusted sources.
+  </Card>
+  <Card title="Compare" icon="chart-bar">
+    Analyze time-series data across multiple periods to identify trends and patterns in tourism activity.
+  </Card>
+  <Card title="Decide" icon="bullseye">
+    Export charts and raw data to support evidence-based decisions and strategic planning for the territory.
+  </Card>
+</CardGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## Key features
 
-## Need inspiration?
+<CardGroup cols={2}>
+  <Card title="Indicator dashboard" icon="gauge" href="/guide/browsing-indicators">
+    Paginated, filterable, and sortable catalog of sustainability indicators. Filter by domain, subdomain (dimension), or governance classification.
+  </Card>
+  <Card title="Interactive charts" icon="chart-area" href="/guide/charts">
+    ApexCharts-powered time-series visualizations with zoom, granularity controls (raw / day / week / month / year), and viewport-aware lazy loading.
+  </Card>
+  <Card title="Data exports" icon="download" href="/guide/export-csv">
+    Export indicator data as CSV or render the chart as a high-resolution PNG image for reports and presentations.
+  </Card>
+  <Card title="Full-text search" icon="magnifying-glass" href="/guide/search">
+    Search across all indicators by name and metadata. Results include domain and subdomain context for quick navigation.
+  </Card>
+  <Card title="Favorites" icon="star" href="/guide/favorites">
+    Bookmark indicators to build a personalized shortlist of the metrics most relevant to you.
+  </Card>
+  <Card title="Blog" icon="newspaper" href="/guide/blog">
+    Read articles and insights published by administrators, written in the platform's rich-text editor.
+  </Card>
+</CardGroup>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+## Platform structure
+
+The platform is organized around a hierarchy of concepts:
+
+| Concept | Description |
+|---|---|
+| **Domain** | A top-level thematic area (e.g., Environment, Economy, Society). Each domain groups related indicators. |
+| **Dimension / Subdomain** | A sub-category within a domain that narrows the scope of its indicators. |
+| **Indicator** | A measurable metric with a name, unit, periodicity, and associated time-series data. |
+| **Resource** | A data source attached to one or more indicators, with a defined coverage period. |
+
+<Note>
+The platform is available in Portuguese and English. Language detection is automatic based on your browser settings, and you can switch languages at any time using the language selector in the navigation bar.
+</Note>
+
+## Quick links
+
+<CardGroup cols={2}>
+  <Card title="Core concepts" icon="book-open" href="/concepts/domains">
+    Understand domains, indicators, dimensions, and resources before diving in.
+  </Card>
+  <Card title="User guide" icon="user" href="/guide/home">
+    Step-by-step walkthroughs for every user-facing feature.
+  </Card>
+</CardGroup>

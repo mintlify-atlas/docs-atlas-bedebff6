@@ -1,0 +1,75 @@
+---
+title: "Managing indicators"
+description: "How to create, edit, delete, and configure indicators in the Roots admin panel."
+---
+
+Indicators are the core measurable metrics of the platform. Each indicator belongs to a domain and one of that domain's dimensions. Indicators have metadata such as a name, description, measurement unit, update periodicity, and a governance flag. They are also linked to resources — the data sources that provide their time-series data.
+
+Navigate to **Indicators management** at `/indicators-management` or `/admin` from the AdminNavbar.
+
+## The indicators table
+
+The table lists all indicators with the following columns:
+
+| Column | Description |
+|---|---|
+| **Name** | The indicator's display name. Clicking the name navigates to the resource management page for that indicator. |
+| **Dimension** | The dimension (sub-category) this indicator belongs to, shown as a colored badge matching its domain. |
+| **Governance** | A boolean flag — a green check means the indicator is classified as a governance indicator; red means it is not. |
+| **Options** | Edit and delete action buttons. |
+
+The table supports search (via a `?q=` URL query parameter), sorting by name and other columns, and pagination (10 items per page).
+
+## Creating an indicator
+
+Click the **Adicionar Indicador** action card on the right side of the page. This opens the **IndicatorWizard**.
+
+<Steps>
+  <Step title="Select a domain">
+    Choose the domain this indicator belongs to from the list of existing domains. You must select a domain before you can select a dimension.
+  </Step>
+  <Step title="Select a dimension">
+    Choose the dimension (sub-category) within the selected domain. The dimension determines how the indicator is grouped on the public platform. If the domain has no dimensions yet, create them first on the [Dimensions management](/admin/managing-dimensions) page.
+  </Step>
+  <Step title="Fill in the indicator fields">
+    Complete the form fields:
+
+    | Field | Type | Description |
+    |---|---|---|
+    | **Name** | string | Display name for the indicator. |
+    | **Description** | string | A short description of what this indicator measures. |
+    | **Unit** | string | The unit of measurement (e.g., `%`, `tonnes`, `€`). |
+    | **Periodicity** | string | How frequently data is collected (e.g., `annual`, `monthly`). |
+    | **Governance** | boolean | Check if this indicator is a governance indicator. |
+  </Step>
+  <Step title="Save">
+    Submit the form. The wizard sends `POST /api/indicators/:domainId/:subdomain/` with the indicator payload. On success, the new indicator appears in the table.
+  </Step>
+</Steps>
+
+## Editing an indicator
+
+Click the edit (pencil) icon in the **Options** column. The **IndicatorWizard** opens pre-populated with the indicator's current values. Changes are submitted as `PUT /api/indicators/:id`.
+
+## Deleting an indicator
+
+Click the delete (trash) icon in the **Options** column. A confirmation dialog will appear.
+
+<Warning>
+  Deleting an indicator sends `DELETE /api/indicators/:id` and permanently removes it along with its resource links. This action cannot be undone.
+</Warning>
+
+## Managing resources for an indicator
+
+Each indicator can be linked to one or more resources — the data sources that provide its time-series values. Click the indicator's **name** in the table to navigate to `/resources-management/:indicatorId`.
+
+See [Managing resources](/admin/managing-resources) for the full workflow.
+
+## API reference
+
+```http
+GET    /api/indicators                          — list indicators (skip, limit, sort_by, sort_order)
+POST   /api/indicators/:domainId/:subdomain/    — create indicator
+PUT    /api/indicators/:id                      — update indicator
+DELETE /api/indicators/:id                      — delete indicator
+```

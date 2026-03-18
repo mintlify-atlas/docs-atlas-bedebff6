@@ -1,0 +1,77 @@
+---
+title: "Home page"
+description: "A walkthrough of the Roots platform home page — hero, features, dimensions, and blog sections."
+---
+
+The home page is the entry point to the Roots platform. It introduces the platform's purpose and guides you toward the indicator catalog. Each section is animated as you scroll, and the background adapts to the section currently in view.
+
+## Navigation bar
+
+The navigation bar is always visible at the top of the page. It contains:
+
+- **Logo** — click to return to the home page at any time.
+- **Search** — opens a search input so you can find indicators by name without leaving the current page. See [Searching for indicators](/guide/search) for details.
+- **Language switcher** — toggle between Portuguese and English. The platform detects your browser language on first load.
+- **Login button** — authenticates you to unlock personalized features such as [Favorites](/guide/favorites).
+
+## Hero section
+
+The hero section displays the platform tagline:
+
+> **A Raiz Da / Decisões Certas** — *The Root of / Right Decisions*
+
+A subtitle beneath the tagline describes the platform's mission. The **Call to Action** button scrolls the page down to the About section so you can read more without hunting for it manually.
+
+<Tip>
+You can skip past the hero at any time by scrolling down or clicking a link in the navigation bar.
+</Tip>
+
+## About section
+
+The About section explains the platform's purpose and objective: aggregating tourism sustainability indicators for the Barra and Costa Nova territory, and making them accessible to researchers, local administrators, and other stakeholders.
+
+A secondary call-to-action button at the bottom of this section links directly to the indicator catalog.
+
+## Features section
+
+This section highlights the three core actions you can perform on the platform:
+
+<CardGroup cols={3}>
+  <Card title="Visualizar" icon="eye">
+    Browse the full catalog of sustainability indicators, organized by domain and dimension, with data sourced directly from trusted providers.
+  </Card>
+  <Card title="Comparar" icon="chart-bar">
+    Analyze time-series data across multiple periods to spot trends and understand how the territory is evolving over time.
+  </Card>
+  <Card title="Decidir" icon="bullseye">
+    Export charts and raw data to support evidence-based decisions and strategic planning for the territory.
+  </Card>
+</CardGroup>
+
+## Dimensions section
+
+The Dimensions section displays cards for every domain that has been configured in the platform. Each card shows the domain name and links directly to the indicator listing for that domain at `/indicators/{domain}`.
+
+Domain cards are loaded live from the API, so the list always reflects the current catalog. Clicking a card takes you to the [browsing indicators](/guide/browsing-indicators) page filtered to that domain.
+
+<Note>
+If you do not see any domain cards, the platform catalog may still be loading or the API may be unreachable. Try refreshing the page.
+</Note>
+
+## Blog section
+
+The bottom of the home page shows a preview of the most recent articles published by platform administrators. Each post card displays the post title and thumbnail image. Click any card to open the full article.
+
+For the full post archive, visit [/blog](/guide/blog) directly or click the blog link in the navigation.
+
+## Animated background
+
+As you scroll through the home page, the background color transitions to match the section currently in view. This is purely visual and does not affect any functionality.
+
+## Next steps
+
+Once you have familiarized yourself with the home page, the natural next step is to browse the indicator catalog.
+
+<Card title="Browsing indicators" icon="chart-line" href="/guide/browsing-indicators">
+  Learn how to navigate the indicator catalog by domain, subdomain, and filters.
+</Card>

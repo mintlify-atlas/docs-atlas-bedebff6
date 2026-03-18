@@ -1,0 +1,71 @@
+---
+title: "Introduction"
+description: "Roots — ATT Tourism Platform is a data-driven sustainability indicator dashboard for tourism destinations."
+---
+
+## What is Roots — ATT Platform?
+
+Roots is a web-based tourism data platform built to support evidence-based decision making for sustainable tourism management. It aggregates, organises, and visualises key sustainability indicators for the destinations of **Barra** and **Costa Nova** in Portugal.
+
+The platform brings together time-series data across multiple thematic areas — from environmental health and economic performance to social cohesion and cultural vitality — and presents them through interactive charts, filterable dashboards, and exportable reports.
+
+## Mission
+
+Tourism destinations face increasing pressure to balance visitor growth with environmental preservation, community wellbeing, and economic resilience. Roots provides the factual foundation for those decisions.
+
+The platform's mission is to:
+
+- Make sustainability data **accessible and interpretable** for a wide range of stakeholders
+- Enable **trend analysis** over time by tracking indicator values across configurable date ranges and granularities
+- Support **governance processes** by flagging indicators with direct policy relevance
+- Foster **transparency** by publishing indicator sources, methodologies, and data periods alongside the data itself
+
+## Who it's for
+
+<Columns cols={2}>
+  <Card title="Tourism administrators" icon="building">
+    Destination managers and municipal officers who need consolidated sustainability metrics to guide policy, allocate resources, and report to stakeholders.
+  </Card>
+  <Card title="Researchers & analysts" icon="microscope">
+    Academics and consultants studying tourism sustainability who need structured, time-series data with source attribution and export capabilities.
+  </Card>
+  <Card title="Local government" icon="landmark">
+    Planning departments and elected officials who need governance-flagged indicators to monitor regulatory and strategic commitments.
+  </Card>
+  <Card title="Stakeholders & public" icon="users">
+    Community groups, businesses, and residents who want to understand how tourism is affecting their destination over time.
+  </Card>
+</Columns>
+
+## Platform sections
+
+### Indicators dashboard
+
+The core of the platform. Indicators are organised into **domains** (top-level thematic areas) and **dimensions** (sub-categories within each domain). You can browse all indicators, filter by domain or dimension, search by keyword, and bookmark favourites for quick return access.
+
+Each indicator has an interactive time-series chart with zoom controls, granularity switching (raw values, daily, weekly, monthly, yearly aggregation), and export options for both raw data (CSV) and chart images (PNG).
+
+### Blog
+
+A rich-text editorial space where platform administrators publish articles, analyses, and updates related to tourism sustainability in the destination. Blog posts are browsable at `/blog` and individual posts are accessible at `/blog/:postId`.
+
+### Admin panel
+
+A restricted area for platform administrators to manage all content: domains, indicators, dimensions, resources, blog posts, and user accounts. Admin access requires a valid account with the administrator role.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Walk through the platform step by step — from the home page to browsing indicators and using the favourites system.
+  </Card>
+  <Card title="Domains" icon="grid-2x2" href="/concepts/domains">
+    Understand how indicators are grouped into thematic domains and how to navigate between them.
+  </Card>
+  <Card title="Indicators" icon="chart-line" href="/concepts/indicators">
+    Learn about the indicator data model, time-series structure, governance flags, and export options.
+  </Card>
+  <Card title="Dimensions" icon="layers" href="/concepts/dimensions">
+    See how dimensions (subdomains) provide a second level of categorisation within each domain.
+  </Card>
+</Columns>

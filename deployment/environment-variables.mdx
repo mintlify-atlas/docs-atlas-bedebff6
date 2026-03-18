@@ -1,0 +1,79 @@
+---
+title: "Environment variables"
+description: "Reference for all environment variables used by the Roots UI, and how to configure them for development and production."
+---
+
+The Roots UI is a Vite-powered SPA. Vite exposes variables to browser code only when they are prefixed with `VITE_`. Any variable without that prefix is available during the build process only and is never included in the compiled bundle.
+
+<Warning>
+Vite bakes environment variables into the static bundle at **build time**. If you change a variable value, you must rebuild the app — restarting the container is not sufficient.
+</Warning>
+
+## Creating the environment file
+
+```bash
+cp .env.example .env
+# Edit .env with your values
+```
+
+Vite automatically loads `.env` when running `npm run dev` or `npm run build`. For environment-specific overrides you can also create `.env.production` or `.env.development` files; Vite merges them in order of precedence.
+
+<Tip>
+Never commit `.env` to version control. The repository includes `.env.example` as a safe template with placeholder values.
+</Tip>
+
+## Variable reference
+
+<ParamField path="VITE_API_BASE_URL" type="string" required>
+  Base URL of the ATT backend API. All API requests from the browser are sent to this address.
+
+  The Nginx configuration in this repository proxies requests with the `/api/` prefix to the upstream service. Set this variable to the origin and path prefix that the browser should call.
+
+  **Development default:** `http://localhost:80`
+
+  **Production example:** `https://api.your-domain.com`
+</ParamField>
+
+## Development vs production
+
+### Development
+
+When running `npm run dev`, Vite's dev server reads `.env` (and `.env.development` if present). The default value of `VITE_API_BASE_URL=http://localhost:80` assumes the backend is available on the same machine.
+
+```bash .env (development)
+VITE_API_BASE_URL=http://localhost:80
+```
+
+### Production
+
+For a production Docker build, set `VITE_API_BASE_URL` to the publicly reachable URL of the backend before building:
+
+```bash .env (production)
+VITE_API_BASE_URL=https://api.your-domain.com
+```
+
+Then build the image:
+
+```bash
+docker build -t roots-ui .
+```
+
+<Info>
+If you are deploying multiple environments (staging, production) from the same codebase, build a separate image for each environment with its own `.env` file, or use a CI/CD pipeline that injects the correct values at build time.
+</Info>
+
+## Accessing variables in application code
+
+Inside the React application, any `VITE_` variable is available via:
+
+```typescript
+import.meta.env.VITE_API_BASE_URL
+```
+
+Vite performs a static string replacement at build time, so these values are embedded directly in the compiled JavaScript bundle.
+
+## Security considerations
+
+- Every `VITE_` variable is **public** — it is visible to anyone who can view the compiled JavaScript. Never put secrets, private keys, or credentials in `VITE_` variables.
+- The JWT auth token is stored in `localStorage` after login and is not an environment variable.
+- Backend secrets (database credentials, API keys used server-side) belong in the backend service's own environment, not in this file.

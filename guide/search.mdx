@@ -1,0 +1,68 @@
+---
+title: "Searching for indicators"
+description: "How to search across the Roots indicator catalog by name, and how to filter and refine search results."
+---
+
+The search feature lets you find indicators quickly by name without browsing through the full catalog. Results appear in the same grid layout as the [indicator catalog](/guide/browsing-indicators).
+
+## How to search
+
+<Steps>
+  <Step title="Open the search box">
+    Click the **search icon** in the navigation bar at the top of any page. A search input field appears. Alternatively, navigate directly to `/search?q=yourterm`.
+  </Step>
+  <Step title="Type your query">
+    Enter at least **2 characters** to trigger a search. Results update as you type once the minimum length is reached.
+
+    <Info>
+    Queries shorter than 2 characters do not trigger a search. The result count will not appear until you have entered a valid query.
+    </Info>
+  </Step>
+  <Step title="Review the results">
+    Search results appear in a 3-column grid at `/search?q=yourterm`. The matched portion of each indicator name is **highlighted** so you can confirm relevance at a glance.
+
+    The total result count is displayed above the grid: **X Indicadores Disponíveis**.
+  </Step>
+  <Step title="Refine with filters">
+    Apply any combination of the following filters to narrow your results:
+
+    - **Domain dropdown** — limit results to a specific domain.
+    - **Dimension dropdown** — limit results to a subdomain (only active when a domain is selected).
+    - **Governance checkbox** — show only governance-classified indicators.
+
+    Filters work the same way as in the [indicator catalog](/guide/browsing-indicators).
+  </Step>
+  <Step title="Open an indicator">
+    Click any result card to go to the [indicator detail](/guide/indicator-detail) page for that indicator.
+  </Step>
+</Steps>
+
+## Result count and empty states
+
+The label above the results grid always shows the number of indicators that matched your query and the active filters.
+
+If no indicators match your search term and filters, an empty state message is displayed instead of the grid. Try:
+
+- Shortening or simplifying your search term.
+- Removing domain or subdomain filters.
+- Unchecking the governance filter.
+
+## Search and pagination
+
+Search results paginate at 9 per page, the same as the indicator catalog. Use the **Previous** and **Next** controls at the bottom of the grid to move between pages. Changing the query or any filter resets the view to page 1.
+
+## Sort options
+
+You can sort search results using the same sort controls available in the catalog:
+
+| Option | Description |
+|---|---|
+| **Nome** | Alphabetical by indicator name |
+| **Periodicidade** | By data periodicity |
+| **Favoritos** | By bookmark count |
+
+Click the sort direction toggle to switch between ascending and descending order.
+
+<Tip>
+The URL updates as you type, so you can share a direct link to any search query with your colleagues.
+</Tip>

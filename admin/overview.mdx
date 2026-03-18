@@ -1,0 +1,75 @@
+---
+title: "Admin overview"
+description: "An introduction to the Roots admin panel — who can access it, how to log in, and what each section manages."
+---
+
+<Warning>
+  Admin features are restricted to users with the `admin` role. Regular users with the `user` role cannot access any admin pages. If you navigate to an admin route without the correct role, you will be redirected or shown an access error.
+</Warning>
+
+The admin panel gives authorized users full control over the platform's content and structure. From here you can create and manage domains, indicators, dimensions, resources, users, and blog posts.
+
+## Logging in
+
+Admin access uses the same login flow as regular users:
+
+<Steps>
+  <Step title="Open the login modal">
+    Click the login button in the top navigation bar. The login modal will appear.
+  </Step>
+  <Step title="Enter your credentials">
+    Enter your **email address** and **password**. Check **Remember me** if you want the session to persist across browser restarts.
+  </Step>
+  <Step title="Submit">
+    Click **Login**. A successful login stores a JWT token in `localStorage` under the key `token` and stores your user object under the key `user`. If your account has `role === 'admin'`, admin navigation links will become visible.
+  </Step>
+</Steps>
+
+<Info>
+  If you forget your password or need your role upgraded to admin, contact another administrator or update your account directly in the database.
+</Info>
+
+## Admin sections
+
+<CardGroup cols={2}>
+  <Card title="Managing domains" icon="layer-group" href="/admin/managing-domains">
+    Create, edit, and delete top-level thematic areas. Each domain has a name, color, icon, carousel images, and a list of dimensions.
+  </Card>
+  <Card title="Managing indicators" icon="chart-line" href="/admin/managing-indicators">
+    Add or update the measurable metrics that belong to a domain and dimension. Set fields like name, unit, periodicity, and governance classification.
+  </Card>
+  <Card title="Managing dimensions" icon="sitemap" href="/admin/managing-dimensions">
+    Manage the sub-categories (dimensions) within each domain. Dimensions are embedded in the domain object and determine how indicators are grouped.
+  </Card>
+  <Card title="Managing resources" icon="database" href="/admin/managing-resources">
+    Attach data sources to indicators. Resources define the coverage period and are linked through the indicator–resource relationship.
+  </Card>
+  <Card title="User management" icon="users" href="/admin/user-management">
+    View all registered users, promote or demote admin rights, and delete accounts.
+  </Card>
+  <Card title="Blog management" icon="newspaper" href="/admin/blog-management">
+    Create, edit, publish, and delete blog posts. The post editor supports rich text with code blocks, links, and file attachments.
+  </Card>
+</CardGroup>
+
+## Admin navigation
+
+All admin pages share a common **AdminNavbar** that links between sections. The navbar is only rendered on admin routes, so it will not appear to regular users browsing the public platform.
+
+## Route reference
+
+The following routes are part of the admin panel:
+
+| Route | Page |
+|---|---|
+| `/admin` | Indicators management (default admin landing) |
+| `/indicators-management` | Indicators management |
+| `/domains-management` | Domains management |
+| `/dimensions` | Dimensions management |
+| `/resources-management/:indicatorId` | Resources for a specific indicator |
+| `/admin/users` | User management |
+| `/admin/blog` | Blog management |
+| `/admin/blog/create` | Create a new blog post |
+| `/admin/blog/edit/:postId` | Edit an existing blog post |
+| `/new_domain` | Create a new domain (wizard) |
+| `/edit_domain/:id` | Edit an existing domain (wizard) |

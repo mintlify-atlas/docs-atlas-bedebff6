@@ -1,0 +1,62 @@
+---
+title: "Managing dimensions"
+description: "How to add and remove dimensions (sub-categories) within domains in the Roots admin panel."
+---
+
+Dimensions — also referred to as sub-domains — are sub-categories within a domain. They narrow the thematic scope of a domain and determine how indicators are grouped on the public platform. For example, a domain called "Environment" might have dimensions like "Water", "Air Quality", and "Biodiversity".
+
+<Info>
+  Dimensions are embedded in the domain object, not stored as independent entities with their own IDs. Internally, each dimension entry is a composite of the domain ID and the dimension name (e.g., `domain123-Water`).
+</Info>
+
+Navigate to **Dimensions management** at `/dimensions` from the AdminNavbar.
+
+## The dimensions table
+
+The table lists every dimension across all domains with the following columns:
+
+| Column | Description |
+|---|---|
+| **Name** | The dimension's name. |
+| **Domain** | The parent domain this dimension belongs to, shown as a colored badge. |
+| **Indicators** | The number of indicators currently assigned to this dimension. |
+| **Options** | Edit and delete action buttons. |
+
+Click the **Name** or **Indicators** column headers to sort. The table is paginated with 10 rows per page and supports search by dimension name or domain name.
+
+## Adding a dimension
+
+Click the **Adicionar Dimensão** action card on the right side of the page. The **AddDimensionModal** will open.
+
+<Steps>
+  <Step title="Select a domain">
+    Choose the domain you want to add the dimension to. All existing domains are listed in a dropdown.
+  </Step>
+  <Step title="Enter a name">
+    Type the dimension name. This is a plain string that will be added to the domain's `subdomains` array.
+  </Step>
+  <Step title="Save">
+    Confirm the addition. The system fetches the domain, appends the new dimension name to its `subdomains` array, and sends a `PATCH /api/domains/:domainId` request with the updated array. The new dimension will appear in the table immediately after the page reloads.
+  </Step>
+</Steps>
+
+## Editing a dimension
+
+Click the edit (pencil) icon in the **Options** column. This navigates to the domain's edit wizard at `/edit_domain/:domainId` with the relevant dimension highlighted, where you can rename it alongside the domain's other settings.
+
+## Removing a dimension
+
+Click the delete (trash) icon in the **Options** column. A confirmation dialog will appear.
+
+When you confirm, the system:
+1. Fetches the parent domain by `domainId`.
+2. Filters the `subdomains` array to remove the matching dimension name.
+3. Sends `PATCH /api/domains/:domainId` with the updated array.
+
+<Warning>
+  Removing a dimension does not automatically reassign or delete the indicators that use it. Indicators referencing a removed dimension will lose their dimension association. Review and reassign those indicators after deleting a dimension.
+</Warning>
+
+## Relationship to domains
+
+Because dimensions are part of the domain object, any change to a dimension is a change to the domain. You can also manage dimensions directly from the domain edit wizard at `/edit_domain/:id` if you prefer to work within the domain context.

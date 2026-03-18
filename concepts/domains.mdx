@@ -1,0 +1,105 @@
+---
+title: "Domains"
+description: "Domains are the top-level thematic categories that group related sustainability indicators in the ATT Platform."
+---
+
+## What is a domain?
+
+A domain is a top-level thematic area that groups a set of related sustainability indicators under a common subject. Domains provide the primary navigation structure of the platform — every indicator belongs to exactly one domain.
+
+Typical domain themes in a tourism sustainability context include:
+
+- **Environmental** — air quality, water consumption, biodiversity, waste management, energy use
+- **Economic** — tourism revenue, employment, occupancy rates, business activity
+- **Social** — resident wellbeing, housing, infrastructure, community services
+- **Cultural** — cultural heritage preservation, local events, visitor engagement with culture
+
+The exact domains available on the platform are configured by administrators and reflect the specific reporting framework adopted for Barra and Costa Nova.
+
+## Domain properties
+
+Each domain object has the following fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | string | Unique identifier for the domain |
+| `name` | string | Display name shown in cards and navigation |
+| `DomainColor` | string | Brand colour used for the domain card and chart accents |
+| `DomainIcon` | string | Icon identifier displayed on the domain card |
+| `DomainCarouselImages` | string[] | Array of image paths used in the domain's image carousel |
+| `subdomains` | object[] | List of dimension objects, each with a `name` field |
+
+<Info>
+  Subdomains (also called dimensions) are the second level of categorisation within a domain. See the [Dimensions](/concepts/dimensions) page for details.
+</Info>
+
+## Domain field reference
+
+<ParamField path="body.id" type="string" required>
+  Unique identifier for the domain. Used in API routes such as `/api/domains/:id` and in URL construction for indicator browsing.
+</ParamField>
+
+<ParamField path="body.name" type="string" required>
+  Human-readable domain name. The indicator browsing route uses the lowercased name: `/indicators/${domain.name.toLowerCase()}`.
+</ParamField>
+
+<ParamField path="body.DomainColor" type="string">
+  Hex colour code or named colour applied to the domain card and used to visually distinguish domains in the UI.
+</ParamField>
+
+<ParamField path="body.DomainIcon" type="string">
+  Icon identifier (from the platform's supported icon set) displayed on the domain card.
+</ParamField>
+
+<ParamField path="body.DomainCarouselImages" type="string[]">
+  One or more image paths displayed as a carousel on the domain card or detail view.
+</ParamField>
+
+<ParamField path="body.subdomains" type="object[]">
+  Array of dimension objects belonging to this domain. Each object has at minimum a `name` field.
+</ParamField>
+
+## Domain API endpoints
+
+```http
+GET  /api/domains           # List all domains
+GET  /api/domains/:id       # Get a single domain by ID
+POST /api/domains           # Create a domain (admin)
+PUT  /api/domains/:id       # Update a domain (admin)
+DEL  /api/domains/:id       # Delete a domain (admin)
+```
+
+## Browsing domains in the UI
+
+### Domain selection page
+
+The `/domains` route renders a grid of domain cards. Each card shows the domain's name, icon, colour, and a carousel of images. Clicking a card navigates to the indicator list for that domain.
+
+### Indicator list by domain
+
+Clicking a domain card navigates to:
+
+```
+/indicators/{domain.name.toLowerCase()}
+```
+
+For example, a domain named `Environmental` links to `/indicators/environmental`. This route renders the `DomainTemplate` component filtered to that domain's indicators.
+
+### All indicators
+
+The `/indicators` route (without a domain path) shows all indicators across every domain, with an option to filter by domain using the domain selector.
+
+## Managing domains (admin)
+
+<Warning>
+  Domain management is restricted to users with the administrator role. Modifying or deleting a domain affects all indicators and dimensions associated with it.
+</Warning>
+
+Administrators manage domains from the `/domains-management` route. From this page you can:
+
+- **View** all existing domains with their properties
+- **Create** a new domain at `/new_domain`
+- **Edit** an existing domain at `/edit_domain/:id`
+- **Delete** a domain (this also removes its associated indicators and dimensions)
+
+When creating or editing a domain, you can set the name, colour, icon, carousel images, and initial set of dimensions.

@@ -1,0 +1,72 @@
+---
+title: "Exporting chart as image"
+description: "How to save the indicator chart as a high-resolution PNG image from the indicator detail page."
+---
+
+You can export the current chart view as a PNG image. The exported image matches what is currently visible on screen — including any zoom level, date range, granularity, and chart type you have configured.
+
+## Exporting an image
+
+<Steps>
+  <Step title="Configure the chart">
+    Set the chart type (line or bar), granularity, and date range to produce the view you want to export. See [Working with charts](/guide/charts) for details on each control.
+  </Step>
+  <Step title="Click Exportar como imagem">
+    Open the **Opções** sidebar panel on the indicator detail page and click **Exportar como imagem**. The platform sends a request to the server to render the chart.
+  </Step>
+  <Step title="Download the file">
+    Once rendering is complete, the browser downloads the file automatically as **`{indicatorName}_chart.png`**.
+  </Step>
+</Steps>
+
+## Export specifications
+
+| Property | Value |
+|---|---|
+| Format | PNG |
+| Width | 1200 px |
+| Height | 600 px |
+| Theme | Light |
+| X-axis type | Datetime |
+
+## Chart colors
+
+The exported image uses the following color palette for data series:
+
+| Color | Hex |
+|---|---|
+| Green | `#009367` |
+| Dark blue | `#084d92` |
+| Teal | `#00d1b2` |
+| Light blue | `#3abff8` |
+
+## What is included in the export
+
+The export configuration sent to the server includes:
+
+```json
+{
+  "chart_type": "line",
+  "theme": "light",
+  "width": 1200,
+  "height": 600,
+  "granularity": "month",
+  "start_date": "2022-01-01",
+  "end_date": "2024-12-31",
+  "title": "Indicator name",
+  "xaxis_type": "datetime",
+  "colors": ["#009367", "#084d92", "#00d1b2", "#3abff8"]
+}
+```
+
+<Info>
+The server renders the chart independently from your browser. The output is consistent regardless of your browser or screen resolution.
+</Info>
+
+## Copying the indicator URL
+
+The **Opções** panel also contains a **Copiar Referência** button. Clicking it copies the URL of the current indicator page to your clipboard, so you can share a direct link to the indicator with colleagues without exporting a file.
+
+<Tip>
+Use **Copiar Referência** when you want to share a live, interactive view. Use **Exportar como imagem** when you need a static graphic for a report or presentation.
+</Tip>

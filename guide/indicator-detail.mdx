@@ -1,0 +1,95 @@
+---
+title: "Indicator detail"
+description: "How to read, interact with, and navigate the indicator detail page, including charts, metadata, filters, and sources."
+---
+
+The indicator detail page is where you analyze time-series data for a single indicator. It includes an interactive chart, filter controls, metadata, and links to data sources.
+
+## Reaching an indicator
+
+Click any indicator card in the catalog (at `/indicators` or from search results) to navigate to its detail page at `/indicator/:id`.
+
+## Page layout overview
+
+The page is divided into three main areas:
+
+- **Header** — indicator name, description, and navigation dropdowns.
+- **Chart panel** — interactive time-series visualization with type and granularity controls.
+- **Sidebar** — two collapsible panels: **Ferramentas** (Tools) for data filters and **Opções** (Options) for exports.
+
+Below the chart, a **metadata panel** and a **Sources table** provide full context for the indicator.
+
+## Navigation workflow
+
+<Steps>
+  <Step title="Open an indicator">
+    Click an indicator card from [the catalog](/guide/browsing-indicators) or search results. The page loads at `/indicator/:id`.
+  </Step>
+  <Step title="Change domain with IndicatorDropdowns">
+    The **IndicatorDropdowns** component at the top of the page lets you navigate without going back to the catalog:
+
+    1. Select a **Domain** from the first dropdown.
+    2. The **Subdomain** dropdown updates to show only dimensions within that domain.
+    3. Select a **Subdomain** to filter the indicator list.
+    4. Select an **Indicator** from the third dropdown.
+
+    The page navigates to the selected indicator automatically.
+  </Step>
+  <Step title="Explore the chart">
+    The chart loads the most recent data by default. Use the [chart controls](/guide/charts) to zoom, change granularity, or apply a date range filter. See [Working with charts](/guide/charts) for full details.
+  </Step>
+  <Step title="Use the Ferramentas panel">
+    Open the **Ferramentas** (Tools) sidebar panel to access:
+    - **Granularity** buttons: Raw, Dia, Sem, Mês, Ano.
+    - **Start date** and **End date** inputs to narrow the time window.
+    - **Reset** button to clear all filters and return to the default view.
+  </Step>
+  <Step title="Export data or image">
+    Open the **Opções** (Options) sidebar panel to access:
+    - **Exportar CSV** — download the current data as a CSV file.
+    - **Exportar como imagem** — save the chart as a PNG.
+    - **Copiar Referência** — copy the URL of this indicator to your clipboard.
+
+    See [Exporting data as CSV](/guide/export-csv) and [Exporting chart as image](/guide/export-image) for details.
+  </Step>
+  <Step title="Review metadata">
+    Scroll below the chart to read the indicator metadata panel and the Sources table.
+  </Step>
+</Steps>
+
+## Chart panel
+
+The chart displays time-series data for the indicator. By default it loads the most recent data points. Key controls:
+
+- **Chart type** — switch between **Line** and **Bar** using the icons in the Views component above the chart.
+- **Toolbar** — zoom in by clicking and dragging, pan with the pan tool, and reset the view with the reset button.
+- **Lazy loading** — when you zoom or pan to the left edge of the chart (older data), the platform automatically fetches additional historical data points. A loading indicator appears while data is being retrieved.
+
+For a full explanation of granularity, date range, and lazy loading, see [Working with charts](/guide/charts).
+
+## Indicator metadata panel
+
+The metadata panel below the chart shows structured information about the indicator:
+
+| Field | Description |
+|---|---|
+| **Source** | The organization or system that provides the data |
+| **Scale** | Geographic or administrative scope |
+| **Unit** | Unit of measurement (e.g., %, nights, tonnes) |
+| **Periodicity** | How frequently data is updated (e.g., monthly, annual) |
+| **Governance** | Whether this is classified as a governance indicator |
+| **Domain** | Top-level thematic area |
+| **Subdomain** | Dimension within the domain |
+
+## Sources table
+
+Below the metadata panel, the **Sources** table lists all data sources linked to this indicator. Each row shows:
+
+- **Name** — the name of the linked resource.
+- **Start period** — the earliest date covered by this source.
+- **End period** — the most recent date covered by this source.
+- **CSV icon** — click to download data from this specific source as a CSV file.
+
+<Note>
+An indicator can have multiple sources, each covering a different time period. If you need data from a specific source only, use the per-source CSV export in the Sources table rather than the global export.
+</Note>

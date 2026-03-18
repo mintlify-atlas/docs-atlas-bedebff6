@@ -1,0 +1,91 @@
+---
+title: "Working with charts"
+description: "How to read, interact with, and configure the time-series charts on indicator detail pages."
+---
+
+Every indicator detail page includes an interactive time-series chart powered by ApexCharts. The chart supports multiple display types, granularity levels, zoom and pan controls, and automatic lazy loading of historical data.
+
+## Chart types
+
+Two chart types are available. Switch between them using the icons in the **Views** component above the chart:
+
+| Type | Best for |
+|---|---|
+| **Line** | Trends and continuous time-series data |
+| **Bar** | Discrete values and period-over-period comparisons |
+
+The X-axis is always a **datetime** axis regardless of chart type.
+
+## Zoom and pan
+
+The chart toolbar appears at the top-right of the chart area and provides three controls:
+
+- **Zoom** (default) — click and drag on the chart to zoom into a specific time range. The chart re-renders at the selected scale.
+- **Pan** — click the pan icon in the toolbar, then click and drag left or right to scroll through time without changing the zoom level.
+- **Reset zoom** — click the reset icon in the toolbar to return to the default view. This does not clear the date range filter set in the Ferramentas panel.
+
+<Tip>
+Zooming in is the fastest way to inspect a short time window. Use the date range inputs in the Ferramentas panel when you need a precise start and end date.
+</Tip>
+
+## Granularity options
+
+Granularity controls how raw data points are aggregated before being displayed. Select a granularity using the buttons in the **Ferramentas** sidebar panel.
+
+<Tabs>
+  <Tab title="Raw">
+    **Raw** displays every data point exactly as it was recorded, with no aggregation. Use this when you need the finest available resolution or when inspecting individual readings.
+
+    This is the default granularity when you open an indicator.
+  </Tab>
+  <Tab title="Dia (day)">
+    **Dia** aggregates data to one value per calendar day. Multiple readings within the same day are combined into a single data point.
+
+    Use this to reduce noise in high-frequency data while keeping a daily view.
+  </Tab>
+  <Tab title="Sem (week)">
+    **Sem** aggregates data to one value per ISO week. Use this for medium-term trend analysis where daily fluctuations are not important.
+  </Tab>
+  <Tab title="Mês (month)">
+    **Mês** aggregates data to one value per calendar month. This is a good default for indicators with annual or semi-annual patterns.
+  </Tab>
+  <Tab title="Ano (year)">
+    **Ano** aggregates data to one value per year. Use this when comparing long-term trends across many years.
+  </Tab>
+</Tabs>
+
+## Date range filter
+
+The **Ferramentas** panel contains **Start date** and **End date** inputs. Setting these limits the data fetched from the API to the specified window, which affects both the chart and any CSV export.
+
+- Enter dates in the input fields (the platform's date picker guides the format).
+- Leave either field blank to use the earliest or latest available date as the boundary.
+- The chart reloads automatically when you change either date.
+
+## Lazy loading
+
+The chart loads the most recent data on first render. When you **zoom or pan to the left edge** (the earliest visible date), the platform detects that you have reached the boundary and automatically fetches older data from the API.
+
+A loading indicator appears at the left side of the chart while the additional data is being retrieved. Once loaded, the chart extends its range and you can continue panning further back in time.
+
+<Info>
+Lazy loading ensures the chart stays responsive even for indicators with many years of data. You only load the data you actually navigate to.
+</Info>
+
+## Resetting the view
+
+The **Reset** button in the Ferramentas panel clears all filters:
+
+- Granularity returns to **Raw**.
+- Start and end date inputs are cleared.
+- The chart reloads the default data window.
+
+<Note>
+The Reset button in the Ferramentas panel is different from the **Reset zoom** button in the chart toolbar. The toolbar button only resets the visual zoom level; the Ferramentas Reset button also clears the date range filter.
+</Note>
+
+## Legend and series
+
+The chart legend is shown below the chart. Each series in the legend corresponds to a data source. Click a legend item to toggle that series on or off.
+
+Series data uses the format `{ x: timestamp, y: value }` where `x` is a Unix timestamp in milliseconds and `y` is the numeric value for that data point.
