@@ -1,0 +1,124 @@
+{
+  "projectType": "saas",
+  "projectName": "Roots — ATT Tourism Platform",
+  "projectDescription": "A data-driven tourism intelligence platform that lets stakeholders visualize, compare, and act on sustainability indicators for the Barra and Costa Nova territory.",
+  "theme": "palm",
+  "primaryColor": "#f1d262",
+  "lightColor": "#7c6c34",
+  "darkColor": "#19160b",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Overview",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/domains",
+              "concepts/indicators",
+              "concepts/dimensions",
+              "concepts/resources"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "User Guide",
+        "groups": [
+          {
+            "group": "Navigating the Platform",
+            "pages": [
+              "guide/home",
+              "guide/browsing-indicators",
+              "guide/indicator-detail",
+              "guide/search",
+              "guide/favorites"
+            ]
+          },
+          {
+            "group": "Data & Exports",
+            "pages": [
+              "guide/charts",
+              "guide/export-csv",
+              "guide/export-image"
+            ]
+          },
+          {
+            "group": "Blog",
+            "pages": [
+              "guide/blog"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Admin Guide",
+        "groups": [
+          {
+            "group": "Administration",
+            "pages": [
+              "admin/overview",
+              "admin/managing-domains",
+              "admin/managing-indicators",
+              "admin/managing-dimensions",
+              "admin/managing-resources",
+              "admin/user-management",
+              "admin/blog-management"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Deployment",
+        "groups": [
+          {
+            "group": "Self-Hosting",
+            "pages": [
+              "deployment/docker",
+              "deployment/environment-variables",
+              "deployment/nginx"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Tourism sustainability indicator dashboard organized by domains and subdomains",
+    "Interactive time-series charts with zoom, granularity controls, and viewport-aware lazy loading",
+    "Export indicator data as CSV or chart as PNG image",
+    "Domain-based browsing with filtering by subdomain and governance flag",
+    "Full-text search across all indicators",
+    "Favorites system for bookmarking indicators",
+    "Multilingual support (i18next, Portuguese/English)",
+    "Admin panel for managing domains, indicators, dimensions, resources, blog posts, and users",
+    "Rich-text blog editor powered by Tiptap",
+    "JWT-based authentication with role-based access control (admin vs regular user)",
+    "Dockerized deployment with Nginx reverse proxy"
+  ],
+  "publicApiSurface": [
+    "GET /api/indicators — list all indicators (paginated, sortable)",
+    "GET /api/indicators/search?q= — full-text search",
+    "GET /api/indicators/:id — get indicator by ID",
+    "GET /api/indicators/:id/data — get time-series data",
+    "POST /api/indicators/:id/export/image — export chart as PNG",
+    "GET /api/indicators/domain/:domainId — indicators by domain",
+    "GET /api/indicators/domain/:domainId/subdomain/:name — indicators by subdomain",
+    "GET /api/domains — list all domains",
+    "GET /api/domains/:id — get domain by ID",
+    "GET /api/blog/posts — list published blog posts",
+    "GET /api/blog/posts/:postId — get a blog post",
+    "POST /api/auth/login — authenticate and receive JWT",
+    "POST /api/auth/logout — invalidate session",
+    "GET /api/auth/me — get current user profile",
+    "GET /api/resources — list resources",
+    "GET /api/users — list users (admin only)"
+  ]
+}
