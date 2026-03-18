@@ -62,11 +62,12 @@ Each domain object has the following fields:
 ## Domain API endpoints
 
 ```http
-GET  /api/domains           # List all domains
-GET  /api/domains/:id       # Get a single domain by ID
-POST /api/domains           # Create a domain (admin)
-PUT  /api/domains/:id       # Update a domain (admin)
-DEL  /api/domains/:id       # Delete a domain (admin)
+GET    /api/domains          # List all domains
+GET    /api/domains/:id      # Get a single domain by ID
+POST   /api/domains/         # Create a domain (admin)
+PUT    /api/domains/:id      # Full update of a domain (admin)
+PATCH  /api/domains/:id      # Partial update of a domain (admin)
+DELETE /api/domains/:id      # Delete a domain (admin)
 ```
 
 ## Browsing domains in the UI

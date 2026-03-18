@@ -50,14 +50,17 @@ The export configuration sent to the server includes:
   "theme": "light",
   "width": 1200,
   "height": 600,
-  "granularity": "month",
-  "start_date": "2022-01-01",
-  "end_date": "2024-12-31",
+  "granularity": "1M",
+  "start_date": "2022-01-01T00:00:00.000Z",
+  "end_date": "2024-12-31T00:00:00.000Z",
   "title": "Indicator name",
   "xaxis_type": "datetime",
-  "colors": ["#009367", "#084d92", "#00d1b2", "#3abff8"]
+  "colors": ["#009367", "#084d92", "#00d1b2", "#3abff8"],
+  "annotations": { "xaxis": [], "yaxis": [] }
 }
 ```
+
+The `granularity` field accepts `"0"` (raw), `"1d"` (day), `"1w"` (week), `"1M"` (month), or `"1y"` (year) — the same values as the Ferramentas panel buttons.
 
 <Info>
 The server renders the chart independently from your browser. The output is consistent regardless of your browser or screen resolution.

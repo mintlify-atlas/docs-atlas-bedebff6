@@ -36,7 +36,7 @@ In the **Actions** column:
 - If the user has the `user` role, click **Tornar Admin** to promote them to `admin`.
 - If the user has the `admin` role, click **Remover Admin** to demote them to `user`.
 
-The change is applied immediately with `PUT /api/users/:id` (via the `userService.updateRole` method).
+The change is applied immediately with `PUT /api/users/:id/role` (via the `userService.updateRole` method), sending `{ "role": "admin" }` or `{ "role": "user" }`.
 
 <Warning>
   Do not demote your own account to `user`. If you remove admin rights from your own account, you will lose access to all admin pages and will not be able to restore your own role. Ask another administrator to restore your access.
@@ -54,24 +54,14 @@ Deletion sends `DELETE /api/users/:id`. The account is permanently removed from 
 
 ## Creating users
 
-User accounts are created through the standard registration flow on the public platform. The admin panel does not provide a user creation form — but you can create users via the API directly if needed:
-
-```http
-POST /api/users
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "name": "Full Name",
-  "role": "user"
-}
-```
+The admin panel does not provide a user creation form. New users must register through the platform's standard registration flow (if enabled by the backend) or be created directly in the database by a system administrator.
 
 ## API reference
 
 ```http
-GET    /api/users          — list all users
-POST   /api/users          — create a user
-PUT    /api/users/:id      — update a user (including role)
-DELETE /api/users/:id      — delete a user
+GET    /api/users              — list all users (admin only)
+GET    /api/users/:id          — get user by ID
+PUT    /api/users/:id          — update user profile
+PUT    /api/users/:id/role     — change user role ({ "role": "admin" | "user" })
+DELETE /api/users/:id          — delete user
 ```

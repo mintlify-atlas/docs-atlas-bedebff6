@@ -72,19 +72,21 @@ The platform combines data from all linked resources when rendering the time-ser
 
 ## Resource API endpoints
 
-```http
-GET    /api/indicators/:indicatorId/resources               # List all resources for an indicator
-GET    /api/indicators/:indicatorId/resources/:resourceId   # Get a single resource
-POST   /api/indicators/:indicatorId/resources               # Create a resource (admin)
-PUT    /api/indicators/:indicatorId/resources/:resourceId   # Update a resource (admin)
-DEL    /api/indicators/:indicatorId/resources/:resourceId   # Delete a resource (admin)
-```
-
-There is also a general resources endpoint:
+Resources have their own CRUD endpoints, and a separate set of endpoints manages the link between a resource and an indicator:
 
 ```http
-GET  /api/resources          # List all resources
-GET  /api/resources/:id      # Get a resource by ID
+# Resource CRUD
+GET    /api/resources                                        # List all resources
+GET    /api/resources/:id                                   # Get a resource by ID
+POST   /api/resources/                                      # Create a resource (admin)
+PUT    /api/resources/:id                                   # Update a resource (admin)
+PATCH  /api/resources/:id                                   # Partial update (admin)
+DELETE /api/resources/:id                                   # Delete a resource (admin)
+
+# Indicator–resource relationship
+GET    /api/indicators/:indicatorId/resources               # List resources linked to an indicator
+POST   /api/indicators/:indicatorId/resources               # Link a resource to an indicator
+DELETE /api/indicators/:indicatorId/resources/:resourceId   # Unlink a resource from an indicator
 ```
 
 ## Managing resources (admin)

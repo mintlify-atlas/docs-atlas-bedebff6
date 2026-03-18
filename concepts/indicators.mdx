@@ -111,12 +111,13 @@ Query parameters for the data endpoint:
   | `1y` | Yearly aggregation |
 </ParamField>
 
-### Export endpoints
+### Export endpoint
 
 ```http
-GET /api/indicators/:indicatorId/data       # Download as CSV (add Accept: text/csv header)
-GET /api/indicators/:indicatorId/export/image  # Export chart as PNG
+POST /api/indicators/:indicatorId/export/image   # Export chart as PNG (server-side render)
 ```
+
+The image export sends a JSON payload specifying the chart type, dimensions, colors, granularity, and date range. The server returns a binary PNG blob. See [Exporting chart as image](/guide/export-image) for the full request format.
 
 ## Browsing indicators in the UI
 
